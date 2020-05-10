@@ -72,6 +72,9 @@ class RecipeController extends Controller
         $user->recipes()->save($recipe);
         $recipe->tags()->saveMany($tags);
 
+        // Update indexes
+        $recipe->searchable();
+
         return response(new RecipeResource($recipe), 201);
     }
 
@@ -114,6 +117,9 @@ class RecipeController extends Controller
 
         // Synchronize unique tags with recipe model.
         $recipe->tags()->sync($tagsUnique);
+
+        // Update indexes
+        $recipe->searchable();
 
         return new RecipeResource($recipe);
     }
