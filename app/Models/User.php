@@ -88,8 +88,8 @@ class User extends Authenticatable
         ]);
 
         $tokenInfo = Arr::only(
-            json_decode((string)$response->getBody()),
-            ['refresh_token', 'token_type']
+            json_decode((string)$response->getBody(), true),
+            ['access_token', 'expires_in']
         );
 
         $this->setAttribute('token', $tokenInfo);
@@ -102,11 +102,11 @@ class User extends Authenticatable
      */
     public function loadAccessToken(string $rawPassword)
     {
-        /**
-         * 1. Recover password_client
-         * @var PassportClient $passport
-         */
-        $passportClient = PassportClient::where('password_client', 1)->first();
+//        /**
+//         * 1. Recover password_client
+//         * @var PassportClient $passport
+//         */
+//        $passportClient = PassportClient::where('password_client', 1)->first();
 
 //        /**
 //         * 2. Recover access token
@@ -200,25 +200,27 @@ class User extends Authenticatable
 //            ];
 //        }
 
-        $formParams = [
-            'grant_type' => 'password',
-            'client_id' => $passportClient->getAttribute('id'),
-            'client_secret' => $passportClient->getAttribute('secret'),
-            'username' => $this->getAttribute('email'),
-            'password' => $rawPassword,
-            'scope' => '*'
-        ];
-
-        $http = new GuzzleClient();
-        $response = $http->post(URL::to('/oauth/token'), [
-            'form_params' => $formParams
-        ]);
-
-        $tokenInfo = Arr::only(
-            json_decode((string)$response->getBody(), true),
-            ['access_token', 'expires_in']
-        );
-
-        $this->setAttribute('token', $tokenInfo);
+//        $formParams = [
+//            'grant_type' => 'password',
+//            'client_id' => $passportClient->getAttribute('id'),
+//            'client_secret' => $passportClient->getAttribute('secret'),
+//            'username' => $this->getAttribute('email'),
+//            'password' => $rawPassword,
+//            'scope' => '*'
+//        ];
+//
+//        $http = new GuzzleClient();
+//        $response = $http->post(URL::to('/oauth/token'), [
+//            'form_params' => $formParams
+//        ]);
+//
+//        $tokenInfo = Arr::only(
+//            json_decode((string)$response->getBody(), true),
+//            ['access_token', 'expires_in']
+//        );
+//
+//        $this->setAttribute('token', $tokenInfo);
+        // For now, simply create a new access token.
+        $this->createAccessToken($rawPassword);
     }
 }
