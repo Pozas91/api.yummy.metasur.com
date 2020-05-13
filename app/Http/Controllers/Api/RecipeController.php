@@ -8,6 +8,8 @@ use App\Http\Resources\RecipeResource;
 use App\Models\Recipe;
 use App\Models\Tag;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -135,5 +137,27 @@ class RecipeController extends Controller
     {
         $recipe->delete();
         return response(null, 204);
+    }
+
+    /**
+     * Generate a PDF with all recipes
+     * @param Request $request
+     * @return Response
+     */
+    public function pdf(Request $request)
+    {
+        /** @var User $user */
+        $user = User::first();
+
+        $recipes = $user->recipes()->get();
+
+        // Set locale to app locale
+        Carbon::setLocale(config('app.locale'));
+
+        // Extends execution time to 5 minutes.
+        set_time_limit(300);
+
+        $pdf = PDF::loadView('recipes.pdf', compact('recipes'));
+        return $pdf->download('mis-recetas.pdf');
     }
 }
