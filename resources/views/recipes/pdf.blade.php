@@ -40,17 +40,17 @@
 
             <div class="description">
                 <h3>Descripción</h3>
-                <p>{{$recipe->description}}</p>
+                <p>{!! $recipe->description !!}</p>
             </div>
 
             <div class="ingredients">
                 <h3>Ingredientes</h3>
-                <pre>{{$recipe->ingredients}}</pre>
+                <pre>{!! $recipe->ingredients !!}</pre>
             </div>
 
             <div class="steps">
                 <h3>Pasos</h3>
-                <pre>{{$recipe->steps}}</pre>
+                <pre>{!! $recipe->steps !!}</pre>
             </div>
 
             <div class="tags">
