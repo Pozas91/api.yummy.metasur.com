@@ -40,17 +40,17 @@
 
             <div class="description">
                 <h3>Descripción</h3>
-                <p>{!! $recipe->description !!}</p>
+                <p>{!! nl2br($recipe->description) !!}</p>
             </div>
 
             <div class="ingredients">
                 <h3>Ingredientes</h3>
-                <pre>{!! $recipe->ingredients !!}</pre>
+                <pre>{!! nl2br($recipe->ingredients) !!}</pre>
             </div>
 
             <div class="steps">
                 <h3>Pasos</h3>
-                <pre>{!! $recipe->steps !!}</pre>
+                <pre>{!! nl2br($recipe->steps) !!}</pre>
             </div>
 
             <div class="tags">
@@ -62,7 +62,9 @@
                 </ul>
             </div>
 
-            <span class="page-break"></span>
+            @if(!$loop->last)
+                <span class="page-break"></span>
+            @endif
         @endforeach
     </body>
 </html>

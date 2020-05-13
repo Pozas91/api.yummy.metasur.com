@@ -147,7 +147,7 @@ class RecipeController extends Controller
     public function pdf(Request $request)
     {
         /** @var User $user */
-        $user = User::first();
+        $user = $request->user();
 
         $recipes = $user->recipes()->get();
 
