@@ -4,67 +4,110 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+              integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+              crossorigin="anonymous">
 
-        <style>
-            .page-break {
+        <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
+
+        <style type="text/css">
+            div.page {
                 page-break-after: always;
+                page-break-inside: avoid;
             }
 
-            .description p, .ingredients pre, .steps pre {
-                white-space: pre-wrap; /* css-3 */
-                white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-                white-space: -pre-wrap; /* Opera 4-6 */
-                white-space: -o-pre-wrap; /* Opera 7 */
-                word-wrap: break-word; /* Internet Explorer 5.5+ */
+            td, p, pre {
+                font-family: 'Dosis', sans-serif;
+                font-size: 20px;
+            }
+
+            .badge {
+                font-size: 20px;
+            }
+
+            th, h1, h2, .badge {
+                font-family: 'Courgette', cursive;
             }
         </style>
     </head>
     <body>
-        @foreach($recipes as $recipe)
-            <h1>{{$recipe->name}}</h1>
+        <div class="container-fluid">
+            @foreach($recipes as $recipe)
+                <div class="row {{!$loop->last ? 'page' : ''}}">
+                    <div class="col-12 mb-4">
+                        <h1 class="display-4">{{$recipe->name}}</h1>
+                    </div>
 
-            <p class="created_at">
-                <b>Creado el:</b>
-                {{\Jenssegers\Date\Date::parse($recipe->created_at)->format('j \\de F \\de Y')}}
-            </p>
+                    <div class="col-12 mb-4">
+                        <table class="table text-center table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Añadida el</th>
+                                    <th scope="col">Raciones</th>
+                                    <th scope="col">Duración estimada</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{\Jenssegers\Date\Date::parse($recipe->created_at)->format('j \\de F \\de Y')}}</td>
+                                    <td>{{trans_choice('{1} :rations ración|[2, *] :rations raciones', $recipe->rations, ['rations' => $recipe->rations])}}</td>
+                                    <td>{{$recipe->duration}} min.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-            <p class="rations">
-                <b>Raciones: </b>
-                {{trans_choice('{1} :rations ración|[2, *] :rations raciones', $recipe->rations, ['rations' => $recipe->rations])}}
-            </p>
+                    <div class="col-12 bg-light rounded mb-4">
+                        <h2 class="display-6">Descripción</h2>
+                        <p>{{$recipe->description}}</p>
+                    </div>
 
-            <p class="duration">
-                <b>Duración estimada: </b>
-                {{$recipe->duration}} min.
-            </p>
+                    <div class="col-12 rounded">
+                        <h2 class="display-6">Ingredientes</h2>
+                        <pre class="text-break">{{$recipe->ingredients}}</pre>
+                    </div>
 
-            <div class="description">
-                <h3>Descripción</h3>
-                <p>{!! nl2br($recipe->description) !!}</p>
-            </div>
+                    <div class="col-12 bg-light rounded">
+                        <h2 class="display-6">Pasos</h2>
+                        <pre class="text-break">{{$recipe->steps}}</pre>
+                    </div>
 
-            <div class="ingredients">
-                <h3>Ingredientes</h3>
-                <pre>{!! nl2br($recipe->ingredients) !!}</pre>
-            </div>
+                    <div class="col-12 rounded-pill">
+                        <h2 class="display-5">Etiquetas</h2>
+                        @foreach($recipe->tags as $tag)
+                            <span class="badge badge-pill">{{$tag->name}}</span>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+        </div>
 
-            <div class="steps">
-                <h3>Pasos</h3>
-                <pre>{!! nl2br($recipe->steps) !!}</pre>
-            </div>
 
-            <div class="tags">
-                <h3>Etiquetas</h3>
-                <ul>
-                    @foreach($recipe->tags as $tag)
-                        <li>{{$tag->name}}</li>
-                    @endforeach
-                </ul>
-            </div>
+        {{--        <div class="description">--}}
+        {{--            <h3>Descripción</h3>--}}
+        {{--            <p>{!! nl2br($recipe->description) !!}</p>--}}
+        {{--        </div>--}}
 
-            @if(!$loop->last)
-                <span class="page-break"></span>
-            @endif
-        @endforeach
+        {{--        <div class="ingredients">--}}
+        {{--            <h3>Ingredientes</h3>--}}
+        {{--            <pre>{!! nl2br($recipe->ingredients) !!}</pre>--}}
+        {{--        </div>--}}
+
+        {{--        <div class="steps">--}}
+        {{--            <h3>Pasos</h3>--}}
+        {{--            <pre>{!! nl2br($recipe->steps) !!}</pre>--}}
+        {{--        </div>--}}
+
+        {{--        <div class="tags">--}}
+        {{--            <h3>Etiquetas</h3>--}}
+        {{--            <ul>--}}
+        {{--                @foreach($recipe->tags as $tag)--}}
+        {{--                    <li>{{$tag->name}}</li>--}}
+        {{--                @endforeach--}}
+        {{--            </ul>--}}
+        {{--        </div>--}}
+
+
     </body>
 </html>

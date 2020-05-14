@@ -8,7 +8,7 @@ use App\Http\Resources\RecipeResource;
 use App\Models\Recipe;
 use App\Models\Tag;
 use App\Models\User;
-use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -16,6 +16,8 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
+
+//use Barryvdh\DomPDF\Facade as PDF;
 
 class RecipeController extends Controller
 {
@@ -149,12 +151,13 @@ class RecipeController extends Controller
         /** @var User $user */
         $user = $request->user();
 
+        // Getting my recipes
         $recipes = $user->recipes()->get();
 
         // Set locale to app locale
         Carbon::setLocale(config('app.locale'));
 
-        // Extends execution time to 5 minutes.
+        // Extends execution time to 5 (5 * 60s) minutes.
         set_time_limit(300);
 
         $pdf = PDF::loadView('recipes.pdf', compact('recipes'));

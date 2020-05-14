@@ -10,6 +10,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/algolia/algoliasearch-client-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/asm89/stack-cors" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-dompdf" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-snappy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/clue/stream-filter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
@@ -32,10 +33,13 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/guzzle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/promises" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/h4cc/wkhtmltoimage-amd64" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/h4cc/wkhtmltopdf-amd64" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hamcrest/hamcrest-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/http-interop/http-factory-guzzle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jean85/pretty-package-versions" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jenssegers/date" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-snappy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-diactoros" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-zendframework-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/framework" />
